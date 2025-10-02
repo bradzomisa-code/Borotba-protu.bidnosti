@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мій новий додаток | Home</title>
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/comfortaa@5.0.5/cyrillic-400.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/comfortaa@5.0.5/cyrillic-500.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/comfortaa@5.0.5/cyrillic-700.min.css">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" />
+    
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    
+    <link rel="preload" as="style" href="https://long-stories.psycho-psych-automation-111321.site/build/assets/app-C6G_3qQV.css" />
+    <link rel="modulepreload" href="https://long-stories.psycho-psych-automation-111321.site/build/assets/app-Buf9net4.js" />
+    <link rel="stylesheet" href="https://long-stories.psycho-psych-automation-111321.site/build/assets/app-C6G_3qQV.css" />
+    <script type="module" src="https://long-stories.psycho-psych-automation-111321.site/build/assets/app-Buf9net4.js"></script>
+
+    <style>
+    [x-cloak] {
+        display: none !important;
+    }
+    </style>
+</head>
+<body>
+<div x-data="{ 
+    isNavOpen: false, 
+    isMoveModeEnabled: false, 
+    isCompactActionsMenu: true,
+    sections: [
+        { id: 'automationPrompts', name: 'Automation Prompts', visible: true },
+    ]
+}" class="min-h-screen h-full bg-gray-900 p-4 text-white pb-32">
+
+    <div class="z-50 sticky top-0 left-0 w-screen max-w-screen" style="margin-top: -1rem; margin-left: -1rem">
+        <div class="bg-gray-800 p-2 flex items-center gap-4">
+            <div x-data="{}" class="relative">
+                <button @click="isNavOpen = !isNavOpen" class="p-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                    <i class="fa-solid fa-bars text-white"></i>
+                </button>
+                
+                <div 
+                    x-show="isNavOpen"
+                    @click.away="isNavOpen = false"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="-translate-x-full"
+                    x-transition:enter-end="translate-x-0"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="translate-x-0"
+                    x-transition:leave-end="-translate-x-full"
+                    class="fixed top-0 left-0 h-full w-64 bg-gray-800 shadow-lg z-50 p-4"
+                    style="display: none;" 
+                >
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold text-white">Menu</h2>
+                        <button @click="isNavOpen = false" class="p-2 rounded-md hover:bg-gray-700">
+                            <i class="fa-solid fa-xmark text-white"></i>
+                        </button>
+                    </div>
+                    <nav class="flex flex-col gap-4">
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white transition-colors bg-gray-900 text-white">
+                            <i class="fa-solid fa-house w-6 text-center"></i>
+                            <span>Home</span>
+                        </a>
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white transition-colors ">
+                            <i class="fa-solid fa-box-archive w-6 text-center"></i>
+                            <span>Archives</span>
+                        </a>
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white transition-colors ">
+                            <i class="fa-solid fa-gear w-6 text-center"></i>
+                            <span>Settings</span>
+                        </a>
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white transition-colors ">
+                            <i class="fa-solid fa-magnifying-glass w-6 text-center"></i>
+                            <span>Search</span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+            <div class="py-1 text-lg font-medium bg-gray-600 w-full text-center">
+                Status: Ready (Статичний текст)
+            </div>
+        </div>
+        
+        <div class="bg-gray-700 w-full p-1 flex flex-wrap gap-1.5 items-center">
+            <span class="font-bold mr-2 text-sm">Sections:</span>
+            <div class="flex flex-wrap gap-1.5 items-center">
+                <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-blue-700 hover:bg-blue-600 !px-2 !py-0.5 !text-xs">
+                    Automation Prompts
+                </button>
+            </div>
+            <div class="ml-auto flex gap-1.5">
+                <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 !px-2 !py-0.5 !text-xs">
+                    Show All
+                </button>
+                <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 !px-2 !py-0.5 !text-xs">
+                    Hide All
+                </button>
+                <button
+                    @click="isMoveModeEnabled = !isMoveModeEnabled"
+                    class="px-2 py-1 rounded transition-colors"
+                    :class="isMoveModeEnabled ? 'bg-green-600 hover:bg-green-500' : 'bg-gray-600 hover:bg-gray-500'"
+                    title="Toggle Move Mode"
+                >
+                    <i class="fa-solid fa-arrows-up-down-left-right text-xs text-white"></i>
+                </button>
+                <button
+                    @click="isCompactActionsMenu = !isCompactActionsMenu"
+                    class="px-2 py-1 rounded transition-colors"
+                    :class="isCompactActionsMenu ? 'bg-gray-600 hover:bg-gray-500' : 'bg-blue-600 hover:bg-blue-500'"
+                    title="Toggle Actions Menu Style"
+                >
+                    <i class="fa-solid fa-table-cells text-xs text-white"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-gray-400 w-full p-2">
+            <div x-show="isCompactActionsMenu">
+                <div class="flex flex-wrap items-center gap-1.5 p-1 bg-gray-800/70 rounded-lg">
+                    <div class="flex items-center gap-2">
+                        <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-yellow-700 hover:bg-yellow-600 !text-xs" title="Start Geo Queue (double-click)">
+                            <i class="fa-solid fa-globe"></i>
+                            Queue
+                        </button>
+                        <label class="inline-flex items-center space-x-2">
+                            <input type="checkbox" class="rounded border-gray-700 text-blue-600 bg-gray-800 focus:ring-2 focus:ring-blue-500">
+                            <span class="text-white">Stop</span>
+                        </label>
+                        <label class="inline-flex items-center space-x-2">
+                            <input type="checkbox" class="rounded border-gray-700 text-blue-600 bg-gray-800 focus:ring-2 focus:ring-blue-500">
+                            <span class="text-white">Continue</span>
+                        </label>
+                    </div>
+                    <div class="h-6 w-px bg-gray-700"></div>
+                    <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-red-500 hover:bg-red-400 !px-2.5 !py-1.5" title="Double-click to clear story data">
+                        <i class="fa-solid fa-eraser"></i>
+                    </button>
+                    <div class="h-6 w-px bg-gray-700"></div>
+                    <div class="flex items-center gap-1.5">
+                        <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-yellow-700 hover:bg-yellow-600 !text-xs !font-bold" title="Run all story generation steps (double-click)">
+                            STORY
+                        </button>
+                        <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600" title="Generate Topic">
+                            <i class="fa-solid fa-t"></i>
+                        </button>
+                        <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600" title="Generate Scenery">
+                            <i class="fa-solid fa-list-ol"></i>
+                        </button>
+                        <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600" title="Generate Image Prompts">
+                            <i class="fa-solid fa-quote-right"></i>
+                        </button>
+                        <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600" title="Generate Images">
+                            <i class="fa-solid fa-images"></i>
+                        </button>
+                        <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600" title="Generate Voiceovers">
+                            <i class="fa-solid fa-microphone-lines"></i>
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <div class="h-6 w-px bg-gray-700"></div>
+                        <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-yellow-700 hover:bg-yellow-600 !text-xs !font-bold" title="Run all video editing steps (double-click)">
+                            VIDEO
+                        </button>
+                        <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600" title="Merge images and audio">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </button>
+                        <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600" title="Add Background Music">
+                            <i class="fa-solid fa-music"></i>
+                        </button>
+                    </div>
+                    <div class="flex-grow"></div>
+                    <div class="flex items-center gap-1.5">
+                        <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 !text-xs" title="Save as a new story entry">
+                            <i class="fa-solid fa-save"></i>
+                            NEW
+                        </button>
+                        <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-yellow-900 hover:bg-yellow-800 !text-xs" title="Update the current story entry">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            UPDATE
+                        </button>
+                        <a href="#" class="px-2 py-1 rounded text-white text-center flex items-center justify-center gap-2 bg-purple-700 hover:bg-purple-600" title="Download Preview Image"><i class="fa-regular fa-image"></i></a>
+                        <a href="#" class="px-2 py-1 rounded text-white text-center flex items-center justify-center gap-2 bg-purple-700 hover:bg-purple-600" title="Download Middle Video"><i class="fa-solid fa-circle-play"></i></a>
+                        <a href="#" class="px-2 py-1 rounded text-white text-center flex items-center justify-center gap-2 bg-purple-700 hover:bg-purple-600" title="Download Final Video with Music"><i class="fa-solid fa-video"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div x-show="!isCompactActionsMenu" style="display: none;">
+                <p class="text-white">Розширене меню дій (для простоти залишаємо прихованим у статичній версії)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col gap-4 mt-4">
+        <div
+            data-section-id="automationPrompts"
+            class="relative border rounded-lg p-1 border-gray-600 group"
+        >
+            <div class="drag-handle absolute top-2 right-2 p-2 bg-gray-700 rounded-full cursor-grab opacity-0 group-hover:opacity-100 transition-opacity z-50">
+                <i class="fa-solid fa-grip-vertical text-white"></i>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
+                
+                <div class="bg-gray-800/50 p-3 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-2">Primary Inputs</h3>
+                    <div class="space-y-3 pt-2">
+                        <div>
+                            <label for="ids-queue" class="block mb-1 text-sm font-medium">Queue of queues IDs</label>
+                            <input class="w-full p-2 border rounded bg-gray-800 border-gray-700 text-white" id="ids-queue" placeholder="e.g., 1,5,17...">
+                        </div>
+                        <div>
+                            <label for="story-topic-ref" class="block mb-1 text-sm font-medium">Topic reference</label>
+                            <input class="w-full p-2 border rounded bg-gray-800 border-gray-700 text-white" id="story-topic-ref" placeholder="Enter topic reference">
+                        </div>
+                        <div>
+                            <label for="transcription" class="block mb-1 text-sm font-medium">Transcription</label>
+                            <textarea class="w-full p-2 border rounded bg-gray-800 border-gray-700 text-white h-40" id="transcription" placeholder="Enter transcription"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800/50 p-3 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2 border-b border-gray-700 pb-2">Additional Settings</h3>
+                    <div class="space-y-3 pt-2">
+                        <div>
+                            <label for="story-topic" class="block mb-1 text-sm font-medium">Story Topic</label>
+                            <input class="w-full p-2 border rounded bg-gray-800 border-gray-700 text-white" id="story-topic" placeholder="Enter story topic">
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <label class="inline-flex items-center space-x-2">
+                                <input type="checkbox" class="rounded border-gray-700 text-blue-600 bg-gray-800 focus:ring-2 focus:ring-blue-500">
+                                <span class="text-white">Finished</span>
+                            </label>
+                            <label class="inline-flex items-center space-x-2">
+                                <input type="checkbox" class="rounded border-gray-700 text-blue-600 bg-gray-800 focus:ring-2 focus:ring-blue-500">
+                                <span class="text-white">Geo replace</span>
+                            </label>
+                            <label class="inline-flex items-center space-x-2">
+                                <input type="checkbox" class="rounded border-gray-700 text-blue-600 bg-gray-800 focus:ring-2 focus:ring-blue-500">
+                                <span class="text-white">Test</span>
+                            </label>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="flex-1">
+                                <label for="reference-story-id" class="block mb-1 text-sm font-medium">Reference ID</label>
+                                <input class="w-full p-2 border rounded bg-gray-800 border-gray-700 text-white" id="reference-story-id" placeholder="Ref. ID">
+                                <p class="text-xs mt-1 text-gray-400">Queue: [ID]</p>
+                            </div>
+                            <div class="flex-1">
+                                <label for="reference-type" class="block mb-1 text-sm font-medium">Reference Type</label>
+                                <input class="w-full p-2 border rounded bg-gray-800 border-gray-700 text-white" id="reference-type" placeholder="Ref. Type">
+                                <p class="text-xs mt-1 text-gray-400">Queue: [Type]</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="flex-1">
+                                <select class="w-full p-2 border rounded bg-gray-800 border-gray-700 text-white">
+                                    <option value="">Choose geo</option>
+                                    <option value="1">Geo Option 1</option>
+                                </select>
+                            </div>
+                            <div class="flex-1">
+                                <select class="w-full p-2 border rounded bg-gray-800 border-gray-700 text-white">
+                                    <option value="">Select voice</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <select class="w-full p-2 border rounded bg-gray-800 border-gray-700 text-white">
+                                <option value="">Choose a background music</option>
+                                <option value="1">Music Track 1</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col gap-3">
+                    <div x-data="{ automationPromptsVisible: false }" class="bg-gray-800/50 p-3 rounded-lg">
+                        <h3 @click="automationPromptsVisible = !automationPromptsVisible" class="font-bold text-lg mb-2 border-b border-gray-700 pb-2 flex justify-between items-center cursor-pointer">
+                            <span>Automation Prompts</span>
+                            <span class="text-gray-400">
+                                <i class="fa-solid fa-chevron-down transition-transform" :class="{ 'rotate-180': automationPromptsVisible }"></i>
+                            </span>
+                        </h3>
+                        <div x-show="automationPromptsVisible" x-collapse style="display: none;">
+                            <div class="space-y-3 pt-2">
+                                <div>
+                                    <label for="story-prompt" class="block mb-1 text-sm font-medium">Story Prompt</label>
+                                    <textarea class="w-full p-2 border rounded bg-gray-800 border-gray-700 text-white h-20" id="story-prompt" placeholder="Enter your story prompt here"></textarea>
+                                    <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 mt-1 !text-xs">
+                                        <i class="fa-solid fa-save"></i>
+                                        Save Story Prompt
+                                    </button>
+                                </div>
+                                <div>
+                                    <label for="topic-prompt" class="block mb-1 text-sm font-medium">Topic Prompt</label>
+                                    <textarea class="w-full p-2 border rounded bg-gray-800 border-gray-700 text-white h-20" id="topic-prompt" placeholder="Enter your topic prompt here"></textarea>
+                                    <button class="px-2 py-1 rounded text-white text-center border-transparent flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 mt-1 !text-xs">
+                                        <i class="fa-solid fa-save"></i>
+                                        Save Topic Prompt
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div x-data="{ imagePromptsVisible: false }" class="bg-gray-800/50 p-3 rounded-lg flex flex-col">
+                        <h3 @click="imagePromptsVisible = !imagePromptsVisible" class="font-bold text-lg mb-2 border-b border-gray-700 pb-2 flex justify-between items-center cursor-pointer">
+                            <span>Image Generation Prompts</span>
+                            <span class="text-gray-400">
+                                <i class="fa-solid fa-chevron-down transition-transform" :class="{ 'rotate-180': imagePromptsVisible }"></i>
+                            </span>
+                        </h3>
+                        <div x-show="imagePromptsVisible" x-collapse style="display: none;" class="flex-grow">
+                            <div class="flex gap-3 pt-2 h-full">
+                                <div class="w-1/3 flex flex-col">
+                                    <label for="images-stylistics-prompt" class="block mb-1 text-sm font-medium">Stylistics Prompt</label>
+                                    <textarea class="w-full p-2 border rounded bg-gray-800 border-gray-700 text-white h-32 flex-grow" id="images-stylistics-prompt" placeholder="Stylistics prompt"></textarea>
+                                </div>
+                                <p class="text-white/70 text-sm">Інші поля для промптів були пропущені для стислості.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
